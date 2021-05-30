@@ -1,0 +1,41 @@
+<books>
+<book>
+  <id>123</id>
+  <title>Harry Potter</title>
+  <price>120</price>
+  <author>
+    <authorid>1</id>
+    <name>Maanvi</name>
+  </author>
+  <author>
+    <authorid>2</id>
+    <name>Aman</name>
+  </author>
+  <author>
+    <authorid>3</id>
+    <name>Tejal</name>
+  </author>
+</book>
+<book>
+  <id>124</id>
+  <title>Farewell ro Arms</title>
+  <price>130</price>
+  <author>
+    <authorid>2</id>
+    <name>Aman</name>
+  </author>
+  <author>
+    <authorid>3</id>
+    <name>Tejal</name>
+  </author>
+</book>
+<book>
+  <id>125</id>
+  <title>Early Indians</title>
+  <price>140</price>
+  <author>
+    <authorid>2</id>
+    <name>Aman</name>
+  </author>
+  </book>
+</books>

@@ -1,0 +1,49 @@
+{
+  "books": [
+    {
+      "id": "123",
+      "title": "Harry Potter",
+      "price": 120,
+      "authors": [
+        {
+          "id": "1",
+          "name": "Maanvi"
+        },
+        {
+          "id": "2",
+          "name": "Aman"
+        },
+        {
+          "id": "3",
+          "name": "Tejal"
+        }
+      ]
+    },
+    {
+      "id": "124",
+      "title": "Farewell ro Arms",
+      "price": 130,
+      "authors": [
+        {
+          "id": "2",
+          "name": "Aman"
+        },
+        {
+          "id": "3",
+          "name": "Tejal"
+        }
+      ]
+    },
+    {
+      "id": "125",
+      "title": "Early Indians",
+      "price": 140,
+      "authors": [
+        {
+          "id": "2",
+          "name": "Aman"
+        }
+      ]
+    }
+  ]
+}
