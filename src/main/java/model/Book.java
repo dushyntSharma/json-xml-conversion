@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Books")
 
-public class Book {
+public class Book implements Comparable<Book> {
 	private int id;
 	private String title;
 	private int price;
@@ -60,6 +60,17 @@ public class Book {
 
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
+	}
+
+	@Override
+	public int compareTo(Book bk) {
+		// TODO Auto-generated method stub
+		if (this.price == bk.price)
+			return 0;
+		else if (this.price > bk.price)
+			return 1;
+		else
+			return -1;
 	}
 
 }

@@ -1,7 +1,11 @@
 package client;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -16,7 +20,7 @@ import service.JsonTodatabase;
 public class Application {
 	public static void main(String[] args) {
 
-		System.out.println("Welcome to application");
+		System.out.println("===============Welcome to the Application=================");
 
 		String file = "D:/Script Workspace/XMLandJSON/books.json";
 
@@ -25,20 +29,20 @@ public class Application {
 
 		JsonTodatabase jsonTodatabase = new JsonToDatabaseImpl();
 
-		try {
-			jsonTodatabase.storeJsonData(books);
-			System.out.println("Json data stored to the database");
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		try {
-			jsonTodatabase.getBooks();
-			System.out.println("Data Written to XML File");
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
+//		try {
+//			jsonTodatabase.storeJsonData(books);
+//			System.out.println("Json data stored to the database");
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//		}
+//		try {
+//			jsonTodatabase.getBooks();
+//			System.out.println("Data Written to XML File");
+//		} catch (Exception e1) {
+//
+//			e1.printStackTrace();
+//		}
 
 	}
 
@@ -60,12 +64,13 @@ public class Application {
 
 		// Creating a JSONParser object
 		JSONParser jsonParser = new JSONParser();
-		Set<Book> books = new HashSet<Book>();
+		List<Book> books = new ArrayList<Book>();
+//		Set<Book> books = new HashSet<Book>();
 		try {
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(file));
 			// Retrieving the array
 			JSONArray jsonArrayBooks = (JSONArray) jsonObject.get("books");
-			System.out.println(jsonArrayBooks);
+//			System.out.println(jsonArrayBooks);
 
 			for (Object object : jsonArrayBooks) {
 
@@ -90,10 +95,34 @@ public class Application {
 				books.add(new Book(booksId, title, price, authors));
 
 			}
+			System.out.println("===================");
+			System.out.println("USing the Comparable");
+			System.out.println("==========================");
+			Collections.sort(books);
+			for (Book bk : books) {
+				System.out.println(bk.getId() + " " + bk.getTitle() + " " + bk.getPrice());
+
+			}
+			System.out.println("===================");
+			System.out.println("USing the comparator");
+			System.out.println("==========================");
+
+			Collections.sort(books, new Comparator<Book>() {
+
+				@Override
+				public int compare(Book o1, Book o2) {
+					// TODO Auto-generated method stub
+					return o1.getTitle().compareToIgnoreCase(o2.getTitle());
+				}
+			});
+			for (Book bk : books) {
+				System.out.println(bk.getId() + " " + bk.getTitle() + " " + bk.getPrice());
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return books;
+		return null;
 	}
 }
