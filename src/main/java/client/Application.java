@@ -29,20 +29,29 @@ public class Application {
 
 		JsonTodatabase jsonTodatabase = new JsonToDatabaseImpl();
 
-//		try {
-//			jsonTodatabase.storeJsonData(books);
-//			System.out.println("Json data stored to the database");
-//		} catch (Exception e) {
-//
-//			e.printStackTrace();
-//		}
-//		try {
-//			jsonTodatabase.getBooks();
-//			System.out.println("Data Written to XML File");
-//		} catch (Exception e1) {
-//
-//			e1.printStackTrace();
-//		}
+		try {
+			jsonTodatabase.storeJsonData(books);
+			System.out.println("Json data stored to the database");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		try {
+			jsonTodatabase.getBooks();
+			System.out.println("Data Written to XML File");
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+		}
+
+		try {
+			System.out.println("===========================");
+			readingCtAndCb(file);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 	}
 
@@ -61,6 +70,48 @@ public class Application {
 	}
 
 	private static Set<Book> readJson(String file) {
+
+		// Creating a JSONParser object
+		JSONParser jsonParser = new JSONParser();
+//		List<Book> books = new ArrayList<Book>();
+		Set<Book> books = new HashSet<Book>();
+		try {
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(file));
+			// Retrieving the array
+			JSONArray jsonArrayBooks = (JSONArray) jsonObject.get("books");
+//			System.out.println(jsonArrayBooks);
+
+			for (Object object : jsonArrayBooks) {
+
+				JSONObject record = (JSONObject) object;
+
+				int booksId = Integer.parseInt((String) record.get("id"));
+				String title = (String) record.get("title");
+				int price = Integer.parseInt(record.get("price").toString());
+
+				JSONArray jsonArrayAuthors = (JSONArray) record.get("authors");
+				Set<Author> authors = new HashSet<Author>();
+				for (Object object2 : jsonArrayAuthors) {
+
+					JSONObject record2 = (JSONObject) object2;
+
+					int authorId = Integer.parseInt((String) record2.get("id"));
+					String authorName = (String) record2.get("name");
+
+					authors.add(new Author(authorId, authorName));
+
+				}
+				books.add(new Book(booksId, title, price, authors));
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return books;
+	}
+
+	private static void readingCtAndCb(String file) {
 
 		// Creating a JSONParser object
 		JSONParser jsonParser = new JSONParser();
@@ -98,7 +149,7 @@ public class Application {
 			System.out.println("===================");
 			System.out.println("USing the Comparable");
 			System.out.println("==========================");
-			Collections.sort(books);
+			Collections.sort((List<Book>) books);
 			for (Book bk : books) {
 				System.out.println(bk.getId() + " " + bk.getTitle() + " " + bk.getPrice());
 
@@ -123,6 +174,6 @@ public class Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+
 	}
 }
